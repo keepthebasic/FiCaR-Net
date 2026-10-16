@@ -1,0 +1,23 @@
+# FiCaR FULL reference for ablation: spectral ON + mass-balance soft constraint
+# (production v2 had both off; this is the "complete" method for −component tests)
+lookback: 30
+horizon: 7
+hidden: 128
+batch_size: 256
+epochs: 15
+lr: 0.0005
+w_mb: 0.05
+w_split: 0.0
+w_bias: 0.5
+stride: 7
+forecast_lead: null
+model: ficar
+use_spectral: true
+normalize_inputs: true
+loss_type: log_mse
+probabilistic: false
+grad_clip: 1.0
+device: cuda
+seed: 42
+output_dir: outputs/hydro_ficar_full
+ablation: full

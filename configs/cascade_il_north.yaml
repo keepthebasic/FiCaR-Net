@@ -1,0 +1,20 @@
+# E6b Illinois north subset (4 sites; Green carries exceedances)
+lookback: 14
+hidden: 64
+batch_size: 64
+epochs: 0
+lr: 0.001
+no3_threshold: 5.0
+pos_weight: 5.0
+device: cuda
+seed: 42
+leads: [1, 3, 5, 7]
+flow_mode: hydro_transfer
+nutrient_ckpt: outputs/cascade_shared_head/nutrient_head.pt
+hydro_ckpt_obs: outputs/hydro_ficar_v2/model_best.pt
+hydro_ckpt_fc: outputs/hydro_ficar_fc_l3/model_best.pt
+hydro_base_lead: 3
+residual_clip: 0.8
+hydro_max_basins: 60
+sites: [usgs_5446500, usgs_5447500, usgs_5586300, usgs_5595000]
+output_dir: outputs/cascade_il_north

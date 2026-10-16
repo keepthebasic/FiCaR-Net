@@ -1,0 +1,26 @@
+# Stage-5 / H4: decision calibration (threshold sweep), shared nutrient head
+lookback: 14
+hidden: 64
+no3_threshold: 5.0
+device: cuda
+seed: 42
+leads: [3, 7]
+thresholds: [0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90]
+cost_fn: 5.0
+cost_fp: 1.0
+nutrient_ckpt: outputs/cascade_shared_head/nutrient_head.pt
+hydro_base_lead: 3
+residual_clip: 0.8
+hydro_max_basins: 60
+methods:
+  ficar:
+    flow_mode: hydro_transfer
+    hydro_ckpt_obs: outputs/hydro_ficar_v2/model_best.pt
+    hydro_ckpt_fc: outputs/hydro_ficar_fc_l3/model_best.pt
+  baseline:
+    flow_mode: hydro_transfer
+    hydro_ckpt_obs: outputs/hydro_baseline_v2/model_best.pt
+    hydro_ckpt_fc: outputs/hydro_baseline_fc_l3/model_best.pt
+  perturbed:
+    flow_mode: perturbed
+output_dir: outputs/decision_calib

@@ -1,0 +1,21 @@
+# E1 对照：过程约束 LSTM（与 FiCaR v2 同配方，仅换骨干）
+lookback: 30
+horizon: 7
+hidden: 128
+batch_size: 256
+epochs: 15
+lr: 0.0005
+w_mb: 0.0
+w_split: 0.0
+w_bias: 0.5
+stride: 7
+forecast_lead: null
+model: process_lstm
+use_spectral: false
+normalize_inputs: true
+loss_type: log_mse
+probabilistic: false
+grad_clip: 1.0
+device: cuda
+seed: 42
+output_dir: outputs/hydro_baseline_v2
