@@ -1,0 +1,45 @@
+# Rule-validation frozen configuration (Paper 1 revision, independent network test)
+#
+# All rule parameters below are FROZEN before touching the test window.
+# Changing any value after looking at test results requires re-running every
+# mode and updating the manuscript's "rule freeze" statement.
+
+thresholds_mg_l:
+  primary: 5.0      # main event definition (Illinois-style in-stream criterion)
+  sensitive: 10.0   # EPA MCL sensitivity check
+
+event_definition:
+  onset_gap_days: 3     # observations within <=3 days join the same exceedance event
+  min_run_days: 1       # a single exceedance day already counts as an event
+
+horizon_days: 7         # alert/sampling decision covers days t+1 .. t+7
+
+budgets_per_year: [365, 52, 26, 12]   # budget-matched trigger frequencies
+
+split:
+  train_start: 2020-01-01
+  train_end: 2021-06-30
+  test_start: 2021-07-01
+  test_end: 2022-12-31
+
+signal:
+  flow_percentile: 90   # reference percentile used for diagnostics only
+  normalization: site_q50_train   # signals are Q/q50(site, train) (transferable units)
+
+variants:
+  - nowcast           # trigger on today's observed flow
+  - nwm_fc            # trigger on max NWM flow over the next 7 days
+  - logit             # probabilistic trigger (logistic model on forecast features)
+
+modes:
+  - temporal          # train window -> test window, same sites
+  - logo              # leave-one-gauge-out (pooled thresholds)
+  - transfer          # fit on IL, apply directly to IA/IN
+
+transfer:
+  source_states: [IL]
+  target_states: [IA, IN]
+
+bootstrap:
+  n: 2000
+  seed: 42
